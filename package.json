@@ -1,5 +1,5 @@
 {
-  "name": "payment-transfer",
+  "name": "payment-app",
   "private": true,
   "scripts": {
     "build": "turbo build",
