@@ -1,7 +1,7 @@
 import db from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { userLoginInput, userLoginSchema } from "@repo/schemas/types";
+import { userLoginSchema } from "@repo/schemas/types";
 import { AuthOptions, Session } from "next-auth";
 
 export const authOptions: AuthOptions = {
@@ -16,7 +16,7 @@ export const authOptions: AuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const { success } = userLoginSchema.safeParse(credentials);
         if (!success) {
           return null;
@@ -24,7 +24,7 @@ export const authOptions: AuthOptions = {
 
         const { phone, password } = userLoginSchema.parse(credentials);
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
         const existingUser = await db.user.findFirst({
           where: {
             number: phone,
@@ -69,13 +69,13 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
-        return null;
+        // return null;
       },
     }),
   ],
   secret: process.env.JWT_SECRET || "secret",
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: any }) {
       session.user.id = token.sub || "";
       return session;
     },
