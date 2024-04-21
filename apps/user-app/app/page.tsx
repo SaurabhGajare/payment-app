@@ -1,4 +1,4 @@
-import styles from "./page.module.css";
+// import styles from "./page.module.css";
 
 // function Gradient({ conic, className, small }: { small?: boolean; conic?: boolean; className?: string }): JSX.Element {
 //   return (
@@ -17,8 +17,9 @@ import styles from "./page.module.css";
 
 export default function Page(): JSX.Element {
   return (
-    <main className={styles.main}>
-      <div className="text-teal-400 text-center">Hi</div>
+    <main>
+      {/*<main className={styles.main}>*/}
+      <div className="text-teal-400">Hi</div>
     </main>
   );
 }
