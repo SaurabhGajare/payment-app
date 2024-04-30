@@ -7,7 +7,7 @@ export const userLoginSchema = z.object({
     .regex(/^\d{10}$/, { message: "Phone number can only contain digits" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least of 8 characters" }),
+    .min(1, { message: "Password must be at least of 1 characters" }),
 });
 
 export type userLoginInput = z.infer<typeof userLoginSchema>;

@@ -1,25 +1,15 @@
 // import styles from "./page.module.css";
 
-// function Gradient({ conic, className, small }: { small?: boolean; conic?: boolean; className?: string }): JSX.Element {
-//   return (
-//     <span
-//       className={[
-//         styles.gradient,
-//         conic ? styles.glowConic : undefined,
-//         small ? styles.gradientSmall : styles.gradientLarge,
-//         className,
-//       ]
-//         .filter(Boolean)
-//         .join(" ")}
-//     />
-//   );
-// }
+import { getServerSession } from "next-auth";
+import { authOptions } from "./lib/auth";
+import { redirect } from "next/navigation";
 
-export default function Page(): JSX.Element {
-  return (
-    <main>
-      {/*<main className={styles.main}>*/}
-      <div className="text-teal-400">Hi</div>
-    </main>
-  );
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
+  if (session?.user) {
+    redirect("/dashboard");
+  } else {
+    redirect("/api/auth/signin");
+  }
 }
